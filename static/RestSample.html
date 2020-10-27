@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function submit() {
+            const user_id = $("#user_id").val();
+            const user_name = $("#user_name").val();
+
+            let obj = {
+                user_id: user_id,
+                user_name: user_name
+            }
+            let json = JSON.stringify( obj );
+
+            $.ajax({
+                type: "post",
+                url: "/restSample",
+                data: json,
+                contentType:'application/json',
+                dataType: "json",
+            })
+            .done(function(data) {
+                alert(data["message"]);
+            })
+            .fail(function(error) {
+                console.log(error);
+            });
+        }
+    </script>
+</head>
+<body>
+    ID:<input type="text" name="user_id" id="user_id">
+    Name:<input type="text" name="user_name" id="user_name">
+    <input type="submit" value="submit" onclick="submit()">
+</body>
+</html>
